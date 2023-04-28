@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+</head>
+<body>
+<center>
+<table border="1">
+  <thead>
+    <th> Student Id</th>
+   <th>Student Name</th>
+   <th>Student Email</th>
+   <th>Student Age</th>
+   <th>Student Fee</th>
+   <th>Actions</th>
+  </thead>
+  <tbody>
+  <th:block th:each="student:${students}">
+      <tr>
+          <td>[[${student.id}]]</td>
+          <td>[[${student.name}]]</td>
+          <td>[[${student.email}]]</td>
+          <td>[[${student.age}]]</td>
+          <td>[[${student.fee}]]</td>
+          <td>
+              <button th:data="(${student.id})" id="delete">Delete </button>
+          </td>
+      </tr>
+  </th:block>
+
+  </tbody>
+</table>
+</center>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script  >
+$(document).on('click',"#delete",function(){
+ var studentId=$(this).attr('data');
+   $.ajax({
+       url:"\deleteStudent",
+       type:"DELETE",
+       data:{"studentId":studentId},
+       success: function (result){
+             console.log("success");
+       }
+   })
+   window.location.reload();
+});
+</script>
+</html>
